@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../photo/photo.service';
 import { ActivatedRoute } from '@angular/router';
+
 import { Photo } from '../photo/photo';
 
 @Component({
@@ -9,16 +9,16 @@ import { Photo } from '../photo/photo';
   styleUrls: ['./photo-list.component.css']
 })
 export class PhotoListComponent implements OnInit {
+  
 
   photos: Photo[] = [];
+  filter: string = '';
 
-  constructor(private photoService: PhotoService,
-    private activatedRoute: ActivatedRoute) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    //recupera da rota, o pathVariable declarado no approutingmodule como userName, top!!
-    const userName: string = this.activatedRoute.snapshot.params.userName;
-    this.photoService
-      .listFromUser(userName).subscribe(photos => this.photos = photos);
+    //recupera do resolver mapeado no approuting o campo photos, top
+    this.photos = this.activatedRoute.snapshot.data.photos;
   }
+
 }
