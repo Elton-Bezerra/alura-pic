@@ -1,8 +1,5 @@
 <ap-photo class="img-thumbnail" 
-  url="https://cdn.vox-cdn.com/thumbor/8VEWHAcAt3fZiWZ5knCOmkUsbCE=/0x0:4096x2160/920x613/filters:focal(1416x380:2070x1034):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/64749197/The_Lion_King_dt1_still_1__1_.0.jpg" 
-  description="Simba"></ap-photo>
-
-<ap-photo
-  url="https://sm.ign.com/ign_br/screenshot/z/zazu-is-vo/zazu-is-voiced-by-john-oliver-in-the-lion-king-adaptation_y4eq.jpg"
-  description="Zazu">
+  *ngFor="let photo of photos" 
+  [url]="photo.url" 
+  [description]="photo.description">
 </ap-photo>
