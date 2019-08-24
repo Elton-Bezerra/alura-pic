@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
+import { PlatformDetectorService } from 'src/app/core/platform-detector/platfor-detector.service';
 
 @Component({
     templateUrl: './signin.component.html'
@@ -11,7 +12,10 @@ export class SignInComponent implements OnInit{
     loginForm: FormGroup;
     @ViewChild('userNameInput',{ static: true}) userNameInput: ElementRef<HTMLInputElement>;
 
-    constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {  }
+    constructor(private formBuilder: FormBuilder, 
+        private authService: AuthService, 
+        private router: Router, 
+        private plaformDetectorService: PlatformDetectorService) {  }
     
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
@@ -34,8 +38,11 @@ export class SignInComponent implements OnInit{
                     this.router.navigate(['user', userName]);
                 }, err => {
                     console.log(err);
-                    this.userNameInput.nativeElement.focus();
                     this.loginForm.reset();
+                    // se for verdadeiro faz o and, TOP, nem sabia disso...
+                    this.plaformDetectorService.isPlatformBrowser() && 
+                        this.userNameInput.nativeElement.focus();
+                    
                 }
             );
     }
